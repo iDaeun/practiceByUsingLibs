@@ -1,0 +1,17 @@
+.draggable {
+  touch-action: none;
+  user-select: none;
+  background-color: aqua;
+}
+
+.singleAxisTarget{
+  touch-action: none;
+  user-select: none;
+  background-color: #2299ee;
+}
+
+.horizontalTarget{
+  touch-action: none;
+  user-select: none;
+  background-color: blueviolet;
+}
