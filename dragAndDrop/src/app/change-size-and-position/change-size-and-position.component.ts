@@ -117,11 +117,11 @@ export class ChangeSizeAndPositionComponent implements OnInit {
     interact('.resizable').resizable({
 
       edges: {
-        top: true,       // Use pointer coords to check for resize.
-        left: false,      // Disable resizing from left edge.
-        bottom: '#resizable0', // Resize if pointer target matches selector
-        right: 'div'  // Resize if pointer target is the given Element
+        bottom: true,
+        right: true
       },
+
+      invert: 'reposition', // specify what should happen if the target would be resized to dimensions less than 0x0
 
       listeners: {
 
