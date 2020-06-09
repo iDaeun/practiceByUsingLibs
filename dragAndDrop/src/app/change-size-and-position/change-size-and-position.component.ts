@@ -9,6 +9,7 @@ import interact from 'interactjs';
 export class ChangeSizeAndPositionComponent implements OnInit {
 
   public position = { x: 0, y: 0 };
+  public size = { width: '0px', height: '0px' };
 
   constructor() { }
 
@@ -109,5 +110,39 @@ export class ChangeSizeAndPositionComponent implements OnInit {
     });
 
     this.position = position;
+
+    // ----------------------------------------------------------
+    const size = { width: '0px', height: '0px' };
+
+    interact('.resizable').resizable({
+
+      edges: {
+        top: '#resizable0',       // Use pointer coords to check for resize.
+        left: '#resizable0',      // Disable resizing from left edge.
+        bottom: '#resizable0', // Resize if pointer target matches selector
+        right: '#resizable0'  // Resize if pointer target is the given Element
+      },
+
+      listeners: {
+
+        start(event) {
+          console.log(event.type, event.target)
+        },
+        move(event) {
+
+          event.target.style.width = `${event.rect.width}px`;
+          event.target.style.height = `${event.rect.height}px`;
+
+          size.width = event.target.style.width;
+          size.height = event.target.style.height;
+
+          event.target.style.transform =
+            `translate(${event.deltaRect.left}px, ${event.deltaRect.top}px)`;
+        }
+      }
+    });
+
+    this.size = size;
+
   }
 }

@@ -21,3 +21,18 @@
   user-select: none;
   background-color: cadetblue;
 }
+
+.resizable {
+  background-color: #29e;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+  touch-action: none;
+
+  width: 120px;
+
+  /* This makes things *much* easier */
+  box-sizing: border-box;
+}
