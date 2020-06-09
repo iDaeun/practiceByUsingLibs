@@ -74,6 +74,7 @@ export class ChangeSizeAndPositionComponent implements OnInit {
           console.log(event.type, event.target)
         },
         move(event) {
+
           position.x += event.dx;
           position.y += event.dy;
 
@@ -118,6 +119,8 @@ export class ChangeSizeAndPositionComponent implements OnInit {
 
       edges: {
         bottom: true,
+        top: true,
+        left: true,
         right: true
       },
 
@@ -130,6 +133,10 @@ export class ChangeSizeAndPositionComponent implements OnInit {
         },
         move(event) {
 
+          const target = event.target;
+          let x = (parseFloat(target.getAttribute('data-x')) || 0);
+          let y = (parseFloat(target.getAttribute('data-y')) || 0);
+
           event.target.style.width = `${event.rect.width}px`;
           event.target.style.height = `${event.rect.height}px`;
 
@@ -137,12 +144,97 @@ export class ChangeSizeAndPositionComponent implements OnInit {
           size.height = event.target.style.height;
 
           event.target.style.transform =
-            `translate(${event.deltaRect.left}px, ${event.deltaRect.top}px)`;
+            `translate(${x + event.deltaRect.left}px, ${y + event.deltaRect.top}px)`;
+
+          target.setAttribute('data-x', x + event.deltaRect.left);
+          target.setAttribute('data-y', y + event.deltaRect.top);
         }
       }
     });
 
     this.size = size;
 
+    // ----------------------------------------------------------
+    // resize & re-position
+
+    function dragMoveListener(event) {
+      let target = event.target;
+      // keep the dragged position in the data-x/data-y attributes
+      let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+      let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+      // translate the element
+      target.style.transform = `translate(${x}px, ${y}px)`;
+
+      // update the position attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
+
+    interact('.resize-drag')
+      .resizable({
+
+        edges: {
+          bottom: true,
+          top: true,
+          left: true,
+          right: true
+        },
+
+        listeners: {
+          start(event) {
+            console.log(event.type, event.target)
+          },
+          move(event) {
+            const target = event.target;
+            let x = (parseFloat(target.getAttribute('data-x')) || 0);
+            let y = (parseFloat(target.getAttribute('data-y')) || 0);
+
+            // update the element's style
+            target.style.width = event.rect.width + 'px';
+            target.style.height = event.rect.height + 'px';
+
+            // translate when resizing from top or left edges
+            x += event.deltaRect.left;
+            y += event.deltaRect.top;
+
+            target.style.transform = `translate(${x}px, ${y}px)`;
+
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+            target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
+          }
+        },
+
+        modifiers: [
+          // keep the edges inside the parent
+          // interact.modifiers.restrictEdges({
+          //   outer: 'parent'
+          // }),
+          // minimum size
+          interact.modifiers.restrictSize({
+            min: { width: 100, height: 50 }
+          })
+        ],
+
+        inertia: true
+
+      })
+      .draggable({
+        listeners: {
+          move(event) {
+            dragMoveListener(event);
+          }
+        },
+        inertia: true,
+        // modifiers: [
+        //   interact.modifiers.restrictRect({
+        //     restriction: 'parent',
+        //     endOnly: true
+        //   })
+        // ]
+      });
+
   }
+
 }
