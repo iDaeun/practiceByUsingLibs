@@ -1,8 +1,11 @@
-<h1>app-simple-slider-input</h1>
-<app-simple-slider-input></app-simple-slider-input>
+<button id="practice1" (click)="practiceOne = true; practiceTwo = false">PRACTICE1</button>
+<button id="practice2" (click)="practiceTwo = true; practiceOne = false">PRACTICE2</button>
 
-<h1>app-change-size-and-position</h1>
-<app-change-size-and-position></app-change-size-and-position>
+<ng-container *ngIf="practiceOne">
+  <app-simple-slider-input></app-simple-slider-input>
+  <app-change-size-and-position></app-change-size-and-position>
+  <app-add-new-elements></app-add-new-elements>
+</ng-container>
 
-<h1>app-add-new-elements</h1>
-<app-add-new-elements></app-add-new-elements>
+<ng-container *ngIf="practiceTwo">
+</ng-container>

@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dragAndDrop';
+  public practiceOne = false;
+  public practiceTwo = false;
+
 }
