@@ -8,6 +8,8 @@ import interact from 'interactjs';
 })
 export class LineUpElementsComponent implements OnInit {
 
+  usedDiv = ['ONE', 'TWO', 'THREE', 'FOUR'];
+
   public movedElement = '';
   public clickedDiv = '';
   public setW = 0;
@@ -77,13 +79,25 @@ export class LineUpElementsComponent implements OnInit {
 
   public top() {
     if (this.clickedDiv !== '') {
-      document.getElementById(this.clickedDiv.toString()).style.zIndex = '4';
+      this.usedDiv.forEach(id => {
+        if (id === this.clickedDiv) {
+          document.getElementById(this.clickedDiv.toString()).style.zIndex = '1';
+        } else {
+          document.getElementById(id).style.zIndex = '0';
+        }
+      });
     }
   }
 
   public bottom() {
     if (this.clickedDiv !== '') {
-      document.getElementById(this.clickedDiv.toString()).style.zIndex = '1';
+      this.usedDiv.forEach(id => {
+        if (id === this.clickedDiv) {
+          document.getElementById(this.clickedDiv.toString()).style.zIndex = '0';
+        } else {
+          document.getElementById(id).style.zIndex = '1';
+        }
+      });
     }
   }
 
