@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { SimpleSliderInputComponent } from './simple-slider-input/simple-slider-input.component';
 import { ChangeSizeAndPositionComponent } from './change-size-and-position/change-size-and-position.component';
 import { AddNewElementsComponent } from './add-new-elements/add-new-elements.component';
+import { LineUpElementsComponent } from './line-up-elements/line-up-elements.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SimpleSliderInputComponent,
     ChangeSizeAndPositionComponent,
-    AddNewElementsComponent
+    AddNewElementsComponent,
+    LineUpElementsComponent
   ],
   imports: [
     BrowserModule,
