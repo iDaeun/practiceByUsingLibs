@@ -1,0 +1,26 @@
+.lineUps {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+  touch-action: none;
+  width: 200px;
+}
+
+#ONE {
+  background-color: coral;
+}
+
+#TWO {
+  background-color: plum;
+}
+
+#THREE {
+  background-color: chartreuse;
+}
+
+#FOUR {
+  background-color: mediumvioletred;
+}
