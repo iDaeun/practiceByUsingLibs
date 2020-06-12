@@ -18,7 +18,7 @@ export class LineUpElementsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    interact('.lineUps')
+    interact('.testLineUps')
       .resizable({
         edges: {
           bottom: true,

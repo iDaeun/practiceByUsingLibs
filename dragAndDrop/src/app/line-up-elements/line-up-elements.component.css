@@ -24,3 +24,14 @@
 #FOUR {
   background-color: mediumvioletred;
 }
+
+.testLineUps {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+  touch-action: none;
+  width: 200px;
+}
