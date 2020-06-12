@@ -105,4 +105,19 @@ export class LineUpElementsComponent implements OnInit {
     this.clickedDiv = id;
   }
 
+  public top1() {
+    if (this.clickedDiv !== '') {
+      const parentDiv = document.getElementById('parentDiv');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      parentDiv.insertAdjacentElement('beforeend', childDiv);
+    }
+  }
+
+  public bottom1() {
+    if (this.clickedDiv !== '') {
+      const parentDiv = document.getElementById('parentDiv');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      parentDiv.insertAdjacentElement('afterbegin', childDiv);
+    }
+  }
 }

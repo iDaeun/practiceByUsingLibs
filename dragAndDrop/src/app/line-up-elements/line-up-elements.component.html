@@ -16,8 +16,13 @@ DnD 영역 내 Element 간에 정렬 ( ppt의 위/아래 정렬 및 앞/뒤로 �
 <!--<div class="lineUps" id="FOUR" (click)="clickDiv('FOUR')">FOUR</div>-->
 
 <hr>
+<button (click)="top1()">앞으로 옮기기</button>
+<button (click)="bottom1()">뒤로 옮기기</button>
+<br>
 방법2 : div 순서 바꾸기
-<div class="testLineUps" style="background-color : red">1111</div>
-<div class="testLineUps" style="background-color : rosybrown">2222</div>
-<div class="testLineUps" style="background-color : royalblue">3333</div>
-<div class="testLineUps" style="background-color : brown">4444</div>
+<div id="parentDiv">
+  <div class="testLineUps" id="child1" (click)="clickDiv('child1')" style="background-color : red">1111</div>
+  <div class="testLineUps" id="child2" (click)="clickDiv('child2')" style="background-color : rosybrown">2222</div>
+  <div class="testLineUps" id="child3" (click)="clickDiv('child3')" style="background-color : royalblue">3333</div>
+  <div class="testLineUps" id="child4" (click)="clickDiv('child4')" style="background-color : brown">4444</div>
+</div>
