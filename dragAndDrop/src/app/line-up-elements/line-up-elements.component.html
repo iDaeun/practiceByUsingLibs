@@ -16,21 +16,21 @@ DnD 영역 내 Element 간에 정렬 ( ppt의 위/아래 정렬 및 앞/뒤로 �
 <hr>
 - 앞/뒤 옮기기
 <hr>
-<button (click)="top()">앞으로 옮기기</button>
-<button (click)="bottom()">뒤로 옮기기</button>
-<br>
 방법1 : z-index 값 변경
-<div class="lineUps" id="ONE" (click)="clickDiv('ONE')">ONE</div>
-<div class="lineUps" id="TWO" (click)="clickDiv('TWO')">TWO</div>
-<div class="lineUps" id="THREE" (click)="clickDiv('THREE')">THREE</div>
-<div class="lineUps" id="FOUR" (click)="clickDiv('FOUR')">FOUR</div>
+<div style="margin: 100px">
+  <button (click)="top()">앞으로 옮기기</button>
+  <button (click)="bottom()">뒤로 옮기기</button>
+  <div class="lineUps" id="ONE" (click)="clickDiv('ONE')">ONE</div>
+  <div class="lineUps" id="TWO" (click)="clickDiv('TWO')">TWO</div>
+  <div class="lineUps" id="THREE" (click)="clickDiv('THREE')">THREE</div>
+  <div class="lineUps" id="FOUR" (click)="clickDiv('FOUR')">FOUR</div>
+</div>
 
 <hr>
-<button (click)="top1()">앞으로 옮기기</button>
-<button (click)="bottom1()">뒤로 옮기기</button>
-<br>
 방법2 : div 순서 바꾸기
-<div id="parentDiv">
+<div id="parentDiv" style="margin: 100px">
+  <button (click)="top1()">앞으로 옮기기</button>
+  <button (click)="bottom1()">뒤로 옮기기</button>
   <div class="lineUps1" id="child1" (click)="clickDiv('child1')" style="background-color : red">1111</div>
   <div class="lineUps1" id="child2" (click)="clickDiv('child2')" style="background-color : rosybrown">2222</div>
   <div class="lineUps1" id="child3" (click)="clickDiv('child3')" style="background-color : royalblue">3333</div>
@@ -39,6 +39,7 @@ DnD 영역 내 Element 간에 정렬 ( ppt의 위/아래 정렬 및 앞/뒤로 �
 
 <br>
 <br>
+<hr>
 <!--
 https://ofcourse.kr/css-course/position-%EC%86%8D%EC%84%B1
 https://www.codeproject.com/Articles/567385/CSSplusBoxplusModelplusandplusPositioning
