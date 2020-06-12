@@ -1,5 +1,5 @@
 .lineUps {
-  position: absolute;
+  position: relative;
   color: white;
   font-size: 20px;
   font-family: sans-serif;
@@ -25,8 +25,8 @@
   background-color: mediumvioletred;
 }
 
-.testLineUps {
-  position: absolute;
+.lineUps1 {
+  position: relative;
   color: white;
   font-size: 20px;
   font-family: sans-serif;
@@ -34,4 +34,30 @@
   padding: 20px;
   touch-action: none;
   width: 200px;
+}
+
+.lineUps2 {
+  position: relative;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+  touch-action: none;
+  width: 200px;
+}
+
+#a {
+  background-color: #2299ee;
+  width: 600px;
+  height: 400px;
+}
+
+#b {
+  background-color: #45c489;
+  position: relative;
+  width: 300px;
+  height: 200px;
+  /*right: 10px;*/
+  /*bottom: 10px;*/
 }

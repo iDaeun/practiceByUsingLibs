@@ -1,19 +1,29 @@
 DnD 영역 내 Element 간에 정렬 ( ppt의 위/아래 정렬 및 앞/뒤로 옮기기를 생각하면 됨 )
 <hr>
 - 위/아래 정렬
+<hr>
+<button (click)="top2()">위로 정렬</button>
+<button (click)="bottom2()">아래로 정렬</button>
+<br>
+방법 : top 의 px 조절
+<div id="parentDiv0" style="top: 224px">
+  <div class="lineUps2" id="child5" (click)="clickDiv('child5')" style="background-color : blueviolet">1111</div>
+  <div class="lineUps2" id="child6" (click)="clickDiv('child6')" style="background-color : cornflowerblue">2222</div>
+  <div class="lineUps2" id="child7" (click)="clickDiv('child7')" style="background-color : firebrick">3333</div>
+  <div class="lineUps2" id="child8" (click)="clickDiv('child8')" style="background-color : fuchsia">4444</div>
+</div>
 
 <hr>
 - 앞/뒤 옮기기
-
 <hr>
 <button (click)="top()">앞으로 옮기기</button>
 <button (click)="bottom()">뒤로 옮기기</button>
 <br>
 방법1 : z-index 값 변경
-<!--<div class="lineUps" id="ONE" (click)="clickDiv('ONE')">ONE</div>-->
-<!--<div class="lineUps" id="TWO" (click)="clickDiv('TWO')">TWO</div>-->
-<!--<div class="lineUps" id="THREE" (click)="clickDiv('THREE')">THREE</div>-->
-<!--<div class="lineUps" id="FOUR" (click)="clickDiv('FOUR')">FOUR</div>-->
+<div class="lineUps" id="ONE" (click)="clickDiv('ONE')">ONE</div>
+<div class="lineUps" id="TWO" (click)="clickDiv('TWO')">TWO</div>
+<div class="lineUps" id="THREE" (click)="clickDiv('THREE')">THREE</div>
+<div class="lineUps" id="FOUR" (click)="clickDiv('FOUR')">FOUR</div>
 
 <hr>
 <button (click)="top1()">앞으로 옮기기</button>
@@ -21,8 +31,14 @@ DnD 영역 내 Element 간에 정렬 ( ppt의 위/아래 정렬 및 앞/뒤로 �
 <br>
 방법2 : div 순서 바꾸기
 <div id="parentDiv">
-  <div class="testLineUps" id="child1" (click)="clickDiv('child1')" style="background-color : red">1111</div>
-  <div class="testLineUps" id="child2" (click)="clickDiv('child2')" style="background-color : rosybrown">2222</div>
-  <div class="testLineUps" id="child3" (click)="clickDiv('child3')" style="background-color : royalblue">3333</div>
-  <div class="testLineUps" id="child4" (click)="clickDiv('child4')" style="background-color : brown">4444</div>
+  <div class="lineUps1" id="child1" (click)="clickDiv('child1')" style="background-color : red">1111</div>
+  <div class="lineUps1" id="child2" (click)="clickDiv('child2')" style="background-color : rosybrown">2222</div>
+  <div class="lineUps1" id="child3" (click)="clickDiv('child3')" style="background-color : royalblue">3333</div>
+  <div class="lineUps1" id="child4" (click)="clickDiv('child4')" style="background-color : brown">4444</div>
 </div>
+
+<br>
+<br>
+  <div id="a">
+    <div id="b"></div>
+  </div>

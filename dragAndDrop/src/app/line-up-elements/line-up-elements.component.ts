@@ -18,7 +18,7 @@ export class LineUpElementsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    interact('.testLineUps')
+    interact('.lineUps2')
       .resizable({
         edges: {
           bottom: true,
@@ -119,5 +119,15 @@ export class LineUpElementsComponent implements OnInit {
       const childDiv = document.getElementById(this.clickedDiv.toString());
       parentDiv.insertAdjacentElement('afterbegin', childDiv);
     }
+  }
+
+  public top2() {
+    if (this.clickedDiv !== '') {
+
+    }
+  }
+
+  public bottom2() {
+
   }
 }
