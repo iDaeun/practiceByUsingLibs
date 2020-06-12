@@ -123,11 +123,20 @@ export class LineUpElementsComponent implements OnInit {
 
   public top2() {
     if (this.clickedDiv !== '') {
-
+      const parentDiv = document.getElementById('parentDiv0');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      let parentDivH = parentDiv.offsetHeight;
+      let childDivH = childDiv.offsetHeight;
+      childDiv.style.transform = `translate(${parseFloat(childDiv.getAttribute('data-x'))}px, ${parentDivH - childDivH}px)`;
     }
   }
 
   public bottom2() {
-
+    if (this.clickedDiv !== '') {
+      const parentDiv = document.getElementById('parentDiv0');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      childDiv.style.bottom = parentDiv.style.height;
+      childDiv.style.top = '0px';
+    }
   }
 }

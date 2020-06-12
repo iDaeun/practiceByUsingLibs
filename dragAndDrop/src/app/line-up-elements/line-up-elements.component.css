@@ -39,12 +39,10 @@
 .lineUps2 {
   position: relative;
   color: white;
-  font-size: 20px;
-  font-family: sans-serif;
   border-radius: 8px;
-  padding: 20px;
   touch-action: none;
   width: 200px;
+  height: 100px;
 }
 
 #a {
@@ -63,4 +61,10 @@
   /*top: 100px;*/
   /*right: 100px;*/
   /*bottom: 100px;*/
+}
+
+#parentDiv0 {
+  background-color: bisque;
+  width: 600px;
+  height: 400px;
 }
