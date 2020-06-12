@@ -39,6 +39,23 @@ DnD 영역 내 Element 간에 정렬 ( ppt의 위/아래 정렬 및 앞/뒤로 �
 
 <br>
 <br>
-  <div id="a">
-    <div id="b"></div>
-  </div>
+<!--
+* position
+static: default position; the element is placed according to normal flow.
+The properties top/left/bottom/right are ignored.
+- relative: the element is placed at some offset from its normal static position.
+- absolute: the element is placed at a fixed position within its containing element.
+- fixed: the element is placed at a fixed position within the browser window
+(it will not scroll out of view when the page is scrolled).
+
+* top, bottom, left, right
+These properties determine the positions of the element (margin box) corners.
+The values are interpreted as offsets (displacements).
+- top: a vertical offset (+ move down, - move up)
+- left: a horizontal offset (+ move right, - move left)
+- bottom: a horizontal offset (+ move up, - move down)
+- right: a vertical offset (+ move left, - move right)
+	-->
+<div id="a">
+  <div id="b"></div>
+</div>

@@ -51,6 +51,7 @@
   background-color: #2299ee;
   width: 600px;
   height: 400px;
+  margin: 100px;
 }
 
 #b {
@@ -58,6 +59,8 @@
   position: relative;
   width: 300px;
   height: 200px;
-  /*right: 10px;*/
-  /*bottom: 10px;*/
+  /*left: 100px;*/
+  /*top: 100px;*/
+  /*right: 100px;*/
+  /*bottom: 100px;*/
 }
