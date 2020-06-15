@@ -6,6 +6,8 @@
 }
 
 .childDiv {
+  box-sizing: border-box;
+  touch-action: none;
   position: absolute;
   background-color: blueviolet;
   width: 400px;

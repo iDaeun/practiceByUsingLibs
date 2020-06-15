@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import interact from 'interactjs';
 
 @Component({
@@ -9,13 +9,16 @@ import interact from 'interactjs';
 export class CombinationComponent implements OnInit {
 
   public movedElement = '';
-  public clickedDiv = '';
-  public setW = 0;
-  public setH = 0;
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(e) {
+    // console.log(e);
+  }
 
   constructor() { }
 
   ngOnInit() {
+
     interact('.childDiv')
       .resizable({
         edges: {
@@ -38,16 +41,14 @@ export class CombinationComponent implements OnInit {
     const target = event.target;
     this.movedElement = target.id;
 
-    // keep the dragged position in the data-x/data-y attributes
     let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
     let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-    // translate the element
-    target.style.transform = `translate(${x}px, ${y}px)`;
-
-    // update the position attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
+
+    target.style.left = `${x}px`;
+    target.style.top = `${y}px`;
   }
 
   private resizeMoveListener(event) {
@@ -57,18 +58,14 @@ export class CombinationComponent implements OnInit {
     let x = (parseFloat(target.getAttribute('data-x')) || 0);
     let y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-    // update the element's style
     target.style.width = `${event.rect.width}px`;
     target.style.height = `${event.rect.height}px`;
 
-    this.setW = event.rect.width / 2;
-    this.setH = event.rect.height / 2;
-
-    // translate when resizing from top or left edges
     x += event.deltaRect.left;
     y += event.deltaRect.top;
 
-    target.style.transform = `translate(${x}px, ${y}px)`;
+    target.style.left = `${x}px`;
+    target.style.top = `${y}px`;
 
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
