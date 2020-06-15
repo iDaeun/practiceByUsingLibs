@@ -9,6 +9,7 @@ import interact from 'interactjs';
 export class CombinationComponent implements OnInit {
 
   public movedElement = '';
+  private clickedDiv: string;
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(e) {
@@ -37,6 +38,7 @@ export class CombinationComponent implements OnInit {
       });
   }
 
+  // drag and drop
   private dragMoveListener(event) {
     const target = event.target;
     this.movedElement = target.id;
@@ -72,4 +74,27 @@ export class CombinationComponent implements OnInit {
     target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
   }
 
+  // 클릭
+  public click(e: MouseEvent) {
+    this.clickedDiv = e.target[ 'id' ];
+    console.log(this.clickedDiv);
+  }
+
+  // 정렬
+  public up() {
+    if (this.clickedDiv) {
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      childDiv.style.top = '0px';
+    }
+  }
+
+  public down() {
+    if (this.clickedDiv) {
+      const parentDiv = document.getElementById('parentDiv');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      childDiv.style.top = `${parentDiv.offsetHeight - childDiv.offsetHeight}px`;
+    }
+  }
+
+  // 옮기기
 }
