@@ -3,9 +3,10 @@
 <button (click)="up()">위로 정렬</button>
 <button (click)="down()">아래로 정렬</button>
 <hr>
-<button>앞으로 옮기기</button>
-<button>뒤로 옮기기</button>
+<button (click)="top()">앞으로 옮기기</button>
+<button (click)="bottom()">뒤로 옮기기</button>
 <hr>
 <div id="parentDiv">
   <div class="childDiv" id="childDiv0" (click)="click($event)"></div>
+  <div class="childDiv" id="childDiv1" (click)="click($event)"></div>
 </div>

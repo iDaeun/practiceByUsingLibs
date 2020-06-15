@@ -9,9 +9,16 @@
   box-sizing: border-box;
   touch-action: none;
   position: absolute;
-  background-color: blueviolet;
   width: 400px;
   height: 400px;
+}
+
+#childDiv0 {
+  background-color: blueviolet;
+}
+
+#childDiv1 {
+  background-color: darkslateblue;
 }
 
 button {

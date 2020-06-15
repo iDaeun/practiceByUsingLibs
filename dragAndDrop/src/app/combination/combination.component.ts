@@ -97,4 +97,19 @@ export class CombinationComponent implements OnInit {
   }
 
   // 옮기기
+  public top() {
+    if (this.clickedDiv) {
+      const parentDiv = document.getElementById('parentDiv');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      parentDiv.insertAdjacentElement('beforeend', childDiv);
+    }
+  }
+
+  public bottom() {
+    if (this.clickedDiv) {
+      const parentDiv = document.getElementById('parentDiv');
+      const childDiv = document.getElementById(this.clickedDiv.toString());
+      parentDiv.insertAdjacentElement('afterbegin', childDiv);
+    }
+  }
 }
