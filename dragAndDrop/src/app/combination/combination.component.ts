@@ -8,7 +8,6 @@ import interact from 'interactjs';
 })
 export class CombinationComponent implements OnInit {
 
-  public movedElement = '';
   private clickedDiv: string;
 
   @HostListener('document:mousemove', ['$event'])
@@ -41,7 +40,6 @@ export class CombinationComponent implements OnInit {
   // drag and drop
   private dragMoveListener(event) {
     const target = event.target;
-    this.movedElement = target.id;
 
     let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
     let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
@@ -55,7 +53,6 @@ export class CombinationComponent implements OnInit {
 
   private resizeMoveListener(event) {
     const target = event.target;
-    this.movedElement = target.id;
 
     let x = (parseFloat(target.getAttribute('data-x')) || 0);
     let y = (parseFloat(target.getAttribute('data-y')) || 0);
@@ -111,5 +108,31 @@ export class CombinationComponent implements OnInit {
       const childDiv = document.getElementById(this.clickedDiv.toString());
       parentDiv.insertAdjacentElement('afterbegin', childDiv);
     }
+  }
+
+  // element 추가
+  private setColor() {
+    let x = Math.floor(Math.random() * 256);
+    let y = Math.floor(Math.random() * 256);
+    let z = Math.floor(Math.random() * 256);
+    return 'rgb(' + x + ',' + y + ',' + z + ')';
+  }
+
+  public addDiv0() {
+    let newDiv = document.createElement('div');
+    let bgColor = this.setColor();
+    newDiv.id = `childDiv${Math.floor(Math.random() * 100)}`;
+    newDiv.className = 'childDiv';
+    newDiv.setAttribute('style', `background-color: ${bgColor}; position: absolute; box-sizing: border-box; touch-action: none; width: 400px; height: 400px;`);
+    newDiv.addEventListener('click', (event) => {
+      this.click(event);
+    });
+
+    newDiv.textContent = 'new box!';
+    document.getElementById('parentDiv').appendChild(newDiv);
+  }
+
+  public addDiv1() {
+
   }
 }
