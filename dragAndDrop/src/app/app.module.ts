@@ -7,6 +7,7 @@ import { SimpleSliderInputComponent } from './simple-slider-input/simple-slider-
 import { ChangeSizeAndPositionComponent } from './change-size-and-position/change-size-and-position.component';
 import { AddNewElementsComponent } from './add-new-elements/add-new-elements.component';
 import { LineUpElementsComponent } from './line-up-elements/line-up-elements.component';
+import { CombinationComponent } from './combination/combination.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { LineUpElementsComponent } from './line-up-elements/line-up-elements.com
     SimpleSliderInputComponent,
     ChangeSizeAndPositionComponent,
     AddNewElementsComponent,
-    LineUpElementsComponent
+    LineUpElementsComponent,
+    CombinationComponent
   ],
   imports: [
     BrowserModule,
