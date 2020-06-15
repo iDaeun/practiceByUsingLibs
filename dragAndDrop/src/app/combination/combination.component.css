@@ -1,0 +1,13 @@
+#parentDiv {
+  position: relative;
+  background-color: lightskyblue;
+  width: 1000px;
+  height: 600px;
+}
+
+.childDiv {
+  position: absolute;
+  background-color: blueviolet;
+  width: 400px;
+  height: 400px;
+}
