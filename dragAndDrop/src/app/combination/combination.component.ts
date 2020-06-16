@@ -1,9 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-export enum PAGE {
-  ONE = 1,
-  TWO = 2
-}
+import { PAGE } from '../domain/widget-dto';
 
 @Component({
   selector: 'app-combination',
