@@ -1,5 +1,6 @@
-<app-inside-page></app-inside-page>
+<app-inside-page *ngIf="selectedTab === PAGE.ONE" #ONE></app-inside-page>
+<app-inside-page *ngIf="selectedTab === PAGE.TWO" #TWO></app-inside-page>
 
 <hr>
-<button>page1</button>
-<button>page2 (새로운 창)</button>
+<button (click)="changeTab(PAGE.ONE)">page1</button>
+<button (click)="changeTab(PAGE.TWO)">page2 (새로운 창)</button>
