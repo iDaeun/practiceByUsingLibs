@@ -11,7 +11,7 @@ export class WidgetStorageService {
 
   public readonly changeTab$ = new Subject<PAGE>();
 
-  private _widgetDataList: Array<widget>;
+  private _widgetDataList: Array<widget> = new Array<widget>();
 
   get widgetDataList(): Array<widget> {
     return this._widgetDataList;

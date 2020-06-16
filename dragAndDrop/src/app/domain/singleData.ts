@@ -1,4 +1,5 @@
 export class singleData {
+  public id: string;
   public width: string;
   public height: string;
   public x: string;

@@ -16,17 +16,21 @@ export class InsidePageComponent implements OnInit {
 
   // Subscription
   protected subscriptions: Subscription[] = [];
-  private widget: widget;
+  private widget = new widget();
   private dataList: Array<singleData>;
 
   constructor(private storage: WidgetStorageService) { }
 
   ngOnInit() {
 
+    this.initializeDataList();
+
     this.subscriptions.push(
       this.storage
         .changeTab$
         .subscribe(page => {
+          this.setDataList();
+          console.log('this.dataList ------', this.dataList);
           this.storeWidgetData(page)
         })
     );
@@ -148,16 +152,46 @@ export class InsidePageComponent implements OnInit {
 
   }
 
+  private initializeDataList() {
+    this.dataList = [];
+  }
+
+  private setDataList() {
+    const parentDiv = document.getElementById('parentDiv');
+    if (parentDiv.children.length > 0) {
+      Array.from(parentDiv.children).forEach(child => {
+        let data: singleData;
+        data = {
+          id: child.id,
+          width: child[ 'offsetWidth' ],
+          height: child[ 'offsetHeight' ],
+          x: child.getAttribute('data-x'),
+          y: child.getAttribute('data-y'),
+          z: child.getAttribute('data-z'),
+          contents: {
+            type: 'nnnnnnnn',
+            content: child.innerHTML
+          }
+        };
+        this.dataList.push(data);
+      });
+    }
+  }
+
   private storeWidgetData(page: PAGE) {
     this.widget.page = page;
     this.widget.data = this.dataList;
 
-    let idx = this.storage.widgetDataList.findIndex(list => list.page == page);
-
+    let idx: number;
+    if (this.storage.widgetDataList) {
+      idx = this.storage.widgetDataList.findIndex(list => list.page == page);
+    }
     if (idx > -1) {
       this.storage.widgetDataList[ idx ] = this.widget;
     } else {
       this.storage.widgetDataList.push(this.widget);
     }
+
+    console.log('this.storage.widgetDataList ===== ', this.storage.widgetDataList);
   }
 }
