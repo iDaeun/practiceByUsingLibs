@@ -1,0 +1,29 @@
+#parentDiv {
+  position: relative;
+  background-color: lightskyblue;
+  width: 1000px;
+  height: 600px;
+}
+
+.childDiv {
+  box-sizing: border-box;
+  touch-action: none;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+}
+
+#childDiv0 {
+  background-color: blueviolet;
+}
+
+#childDiv1 {
+  background-color: darkslateblue;
+}
+
+button {
+  width: 200px;
+  background-color: greenyellow;
+  padding: 20px;
+  margin: 5px;
+}

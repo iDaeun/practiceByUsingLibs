@@ -8,6 +8,7 @@ import { ChangeSizeAndPositionComponent } from './change-size-and-position/chang
 import { AddNewElementsComponent } from './add-new-elements/add-new-elements.component';
 import { LineUpElementsComponent } from './line-up-elements/line-up-elements.component';
 import { CombinationComponent } from './combination/combination.component';
+import { InsidePageComponent } from './inside-page/inside-page.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CombinationComponent } from './combination/combination.component';
     ChangeSizeAndPositionComponent,
     AddNewElementsComponent,
     LineUpElementsComponent,
-    CombinationComponent
+    CombinationComponent,
+    InsidePageComponent
   ],
   imports: [
     BrowserModule,
