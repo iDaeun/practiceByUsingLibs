@@ -1,5 +1,9 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import interact from 'interactjs';
+import {WidgetStorageService} from '../services/widget-storage.service';
+import {Subscription} from 'rxjs';
+import {PAGE, widget} from '../domain/widget-dto';
+import {singleData} from '../domain/singleData';
 
 @Component({
   selector: 'app-inside-page',
@@ -10,9 +14,22 @@ export class InsidePageComponent implements OnInit {
 
   private clickedDiv: string;
 
-  constructor() { }
+  // Subscription
+  protected subscriptions: Subscription[] = [];
+  private widget: widget;
+  private dataList: Array<singleData>;
+
+  constructor(private storage: WidgetStorageService) { }
 
   ngOnInit() {
+
+    this.subscriptions.push(
+      this.storage
+        .changeTab$
+        .subscribe(page => {
+          this.storeWidgetData(page)
+        })
+    );
 
     interact('.childDiv')
       .resizable({
@@ -129,5 +146,18 @@ export class InsidePageComponent implements OnInit {
 
   public addDiv1() {
 
+  }
+
+  private storeWidgetData(page: PAGE) {
+    this.widget.page = page;
+    this.widget.data = this.dataList;
+
+    let idx = this.storage.widgetDataList.findIndex(list => list.page == page);
+
+    if (idx > -1) {
+      this.storage.widgetDataList[ idx ] = this.widget;
+    } else {
+      this.storage.widgetDataList.push(this.widget);
+    }
   }
 }

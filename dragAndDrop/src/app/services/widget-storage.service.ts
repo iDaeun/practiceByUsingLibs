@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {widget} from '../domain/widget-dto';
+import {PAGE, widget} from '../domain/widget-dto';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import {widget} from '../domain/widget-dto';
 export class WidgetStorageService {
 
   constructor() { }
+
+  public readonly changeTab$ = new Subject<PAGE>();
 
   private _widgetDataList: Array<widget>;
 
@@ -16,5 +19,9 @@ export class WidgetStorageService {
 
   set widgetDataList(value: Array<widget>) {
     this._widgetDataList = value;
+  }
+
+  public changeTab(page: PAGE) {
+    this.changeTab$.next(page);
   }
 }
