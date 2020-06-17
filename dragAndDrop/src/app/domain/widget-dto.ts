@@ -1,4 +1,3 @@
-import {singleData} from './singleData';
 
 export enum PAGE {
   ONE = 1,
@@ -7,5 +6,5 @@ export enum PAGE {
 
 export class widget {
   page : PAGE;
-  data : Array<singleData>
+  data : NodeListOf<ChildNode>
 }

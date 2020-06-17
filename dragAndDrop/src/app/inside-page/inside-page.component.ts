@@ -3,7 +3,7 @@ import interact from 'interactjs';
 import {WidgetStorageService} from '../services/widget-storage.service';
 import {Subscription} from 'rxjs';
 import {PAGE, widget} from '../domain/widget-dto';
-import {singleData} from '../domain/singleData';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-inside-page',
@@ -22,7 +22,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   private widget = new widget();
 
   // 현재 page : 저장된 데이터 조회 후 화면에 표시
-  private dataList: Array<singleData> = [];
+  private dataList: NodeListOf<ChildNode>;
 
   constructor(private storage: WidgetStorageService) { }
 
@@ -168,27 +168,29 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   }
 
   private initializeDataList() {
-    this.dataList = [];
+    this.dataList = undefined;
   }
 
   private setDataList() {
     const parentDiv = document.getElementById('parentDiv');
-    if (parentDiv.children.length > 0) {
-      Array.from(parentDiv.children).forEach(child => {
-        let data: singleData = {
-          id: child.id,
-          width: child[ 'offsetWidth' ] || 0,
-          height: child[ 'offsetHeight' ] || 0,
-          x: parseFloat(child.getAttribute('data-x')) || 0,
-          y: parseFloat(child.getAttribute('data-y')) || 0,
-          z: parseFloat(child.getAttribute('data-z')) || 0,
-          contents: {
-            type: 'nnnnnnnn',
-            content: child.innerHTML
-          }
-        };
-        this.dataList.push(data);
-      });
+    if (parentDiv.childNodes.length > 0) {
+      this.dataList = JSON.parse(JSON.stringify(parentDiv.childNodes));
+      console.log(this.dataList);
+      // Array.from(parentDiv.children).forEach(child => {
+        // let data: singleData = {
+        //   id: child.id,
+        //   width: child[ 'offsetWidth' ] || 0,
+        //   height: child[ 'offsetHeight' ] || 0,
+        //   x: parseFloat(child.getAttribute('data-x')) || 0,
+        //   y: parseFloat(child.getAttribute('data-y')) || 0,
+        //   z: parseFloat(child.getAttribute('data-z')) || 0,
+        //   contents: {
+        //     type: 'nnnnnnnn',
+        //     content: child.innerHTML
+        //   }
+        // };
+        // this.dataList.push(child);
+      // });
     }
   }
 
@@ -219,21 +221,24 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   }
 
   private showDataList() {
-    if (this.dataList.length > 1) {
+    if (this.dataList) {
       const parentDiv = document.getElementById('parentDiv');
-      this.dataList.forEach(data => {
-        let newDiv = document.createElement('div');
-        newDiv.id = data.id;
-        newDiv.setAttribute('style', `background-color: red; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
-        newDiv.setAttribute('data-x', `${data.x}px`);
-        newDiv.setAttribute('data-y', `${data.y}px`);
-        newDiv.setAttribute('data-z', `${data.z}px`);
-        newDiv.style.left = `${data.x}px`;
-        newDiv.style.top = `${data.y}px`;
-        newDiv.textContent = data.contents.content;
-
-        parentDiv.appendChild(newDiv);
+      this.dataList.forEach((data) => {
+        parentDiv.appendChild(data);
       });
+      // this.dataList.forEach(data => {
+      //   let newDiv = document.createElement('div');
+      //   newDiv.id = data.id;
+      //   newDiv.setAttribute('style', `background-color: red; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
+      //   newDiv.setAttribute('data-x', `${data.x}px`);
+      //   newDiv.setAttribute('data-y', `${data.y}px`);
+      //   newDiv.setAttribute('data-z', `${data.z}px`);
+      //   newDiv.style.left = `${data.x}px`;
+      //   newDiv.style.top = `${data.y}px`;
+      //   newDiv.textContent = data.contents.content;
+      //
+      //   parentDiv.appendChild(newDiv);
+      // });
     }
   }
 }
