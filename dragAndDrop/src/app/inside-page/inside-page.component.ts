@@ -28,7 +28,9 @@ export class InsidePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getDataList();
+    console.log('*************************************************');
     console.log(this.pageNum + 'getDataList ------', this.dataList);
+    this.showDataList();
 
     this.subscriptions.push(
       this.storage
@@ -213,6 +215,25 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       if (idx > -1) {
         this.dataList = this.storage.widgetDataList[ idx ].data;
       }
+    }
+  }
+
+  private showDataList() {
+    if (this.dataList.length > 1) {
+      const parentDiv = document.getElementById('parentDiv');
+      this.dataList.forEach(data => {
+        let newDiv = document.createElement('div');
+        newDiv.id = data.id;
+        newDiv.setAttribute('style', `background-color: red; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
+        newDiv.setAttribute('data-x', `${data.x}px`);
+        newDiv.setAttribute('data-y', `${data.y}px`);
+        newDiv.setAttribute('data-z', `${data.z}px`);
+        newDiv.style.left = `${data.x}px`;
+        newDiv.style.top = `${data.y}px`;
+        newDiv.textContent = data.contents.content;
+
+        parentDiv.appendChild(newDiv);
+      });
     }
   }
 }
