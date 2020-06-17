@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import interact from 'interactjs';
 import {WidgetStorageService} from '../services/widget-storage.service';
 import {Subscription} from 'rxjs';
@@ -10,12 +10,15 @@ import {singleData} from '../domain/singleData';
   templateUrl: './inside-page.component.html',
   styleUrls: ['./inside-page.component.css']
 })
-export class InsidePageComponent implements OnInit {
+export class InsidePageComponent implements OnInit, OnDestroy {
+
+  @Input()
+  private readonly pageNum: PAGE;
 
   private clickedDiv: string;
 
   // Subscription
-  protected subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = [];
   private widget = new widget();
   private dataList: Array<singleData>;
 
@@ -23,15 +26,16 @@ export class InsidePageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.initializeDataList();
-
     this.subscriptions.push(
       this.storage
         .changeTab$
         .subscribe(page => {
-          this.setDataList();
-          console.log('this.dataList ------', this.dataList);
-          this.storeWidgetData(page)
+          if (page === this.pageNum) {
+            this.initializeDataList();
+            this.setDataList();
+            console.log('this.dataList ------', this.dataList);
+            this.storeWidgetData(page)
+          }
         })
     );
 
@@ -51,6 +55,10 @@ export class InsidePageComponent implements OnInit {
         onmove: this.dragMoveListener.bind(this),
         inertia: true
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => {sub.unsubscribe()})
   }
 
   // drag and drop
@@ -160,14 +168,13 @@ export class InsidePageComponent implements OnInit {
     const parentDiv = document.getElementById('parentDiv');
     if (parentDiv.children.length > 0) {
       Array.from(parentDiv.children).forEach(child => {
-        let data: singleData;
-        data = {
+        let data: singleData = {
           id: child.id,
-          width: child[ 'offsetWidth' ],
-          height: child[ 'offsetHeight' ],
-          x: child.getAttribute('data-x'),
-          y: child.getAttribute('data-y'),
-          z: child.getAttribute('data-z'),
+          width: child[ 'offsetWidth' ] || 0,
+          height: child[ 'offsetHeight' ] || 0,
+          x: parseFloat(child.getAttribute('data-x')) || 0,
+          y: parseFloat(child.getAttribute('data-y')) || 0,
+          z: parseFloat(child.getAttribute('data-z')) || 0,
           contents: {
             type: 'nnnnnnnn',
             content: child.innerHTML

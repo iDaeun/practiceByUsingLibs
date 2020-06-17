@@ -1,5 +1,12 @@
-<app-inside-page *ngIf="selectedTab === PAGE.ONE" #ONE></app-inside-page>
-<app-inside-page *ngIf="selectedTab === PAGE.TWO" #TWO></app-inside-page>
+<app-inside-page
+  #ONE
+  *ngIf="tabNow === PAGE.ONE"
+  [pageNum]="PAGE.ONE"></app-inside-page>
+
+<app-inside-page
+  #TWO
+  *ngIf="tabNow === PAGE.TWO"
+  [pageNum]="PAGE.TWO"></app-inside-page>
 
 <hr>
 <button (click)="changeTab(PAGE.ONE)">page1</button>

@@ -9,6 +9,7 @@ import {WidgetStorageService} from '../services/widget-storage.service';
 })
 export class CombinationComponent implements OnInit {
 
+  public tabNow = PAGE.ONE;
   public selectedTab = PAGE.ONE;
   public readonly PAGE = PAGE;
 
@@ -19,6 +20,7 @@ export class CombinationComponent implements OnInit {
 
   public changeTab(page: PAGE) {
     this.selectedTab = page;
-    this.storage.changeTab(page);
+    this.storage.changeTab(this.tabNow);
+    this.tabNow = this.selectedTab;
   }
 }
