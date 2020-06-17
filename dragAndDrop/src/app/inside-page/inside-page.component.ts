@@ -20,27 +20,26 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   // Subscription
   private subscriptions: Subscription[] = [];
   private widget = new widget();
-  private dataList: Array<singleData>;
+
+  // 현재 page : 저장된 데이터 조회 후 화면에 표시
+  private dataList: Array<singleData> = [];
 
   constructor(private storage: WidgetStorageService) { }
 
   ngOnInit() {
+    this.getDataList();
+    console.log(this.pageNum + 'getDataList ------', this.dataList);
 
     this.subscriptions.push(
       this.storage
         .changeTab$
-        .subscribe((page) => {
+        .subscribe(page => {
           this.initializeDataList();
           // 이전 page : 데이터 저장
-          if (page.previousPg === this.pageNum) {
+          if (page === this.pageNum) {
             this.setDataList();
-            console.log('setDataList ------', this.dataList);
+            console.log(this.pageNum + 'setDataList ------', this.dataList);
             this.storeWidgetData();
-          }
-          // 현재 page : 저장된 데이터 조회 후 화면에 표시
-          if (page.presentPg === this.pageNum) {
-            this.getDataList();
-            console.log('getDataList ------', this.dataList);
           }
         })
     );
