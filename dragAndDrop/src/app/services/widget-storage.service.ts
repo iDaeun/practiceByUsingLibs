@@ -9,7 +9,7 @@ export class WidgetStorageService {
 
   constructor() { }
 
-  public readonly changeTab$ = new Subject<PAGE>();
+  public readonly changeTab$ = new Subject<{ previousPg: PAGE, presentPg: PAGE }>();
 
   private _widgetDataList: Array<widget> = new Array<widget>();
 
@@ -21,7 +21,7 @@ export class WidgetStorageService {
     this._widgetDataList = value;
   }
 
-  public changeTab(page: PAGE) {
-    this.changeTab$.next(page);
+  public changeTab(previousPg: PAGE, presentPg: PAGE) {
+    this.changeTab$.next({ previousPg: previousPg, presentPg: presentPg });
   }
 }

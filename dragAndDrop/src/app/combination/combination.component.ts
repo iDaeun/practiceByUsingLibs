@@ -20,7 +20,7 @@ export class CombinationComponent implements OnInit {
 
   public changeTab(page: PAGE) {
     this.selectedTab = page;
-    this.storage.changeTab(this.tabNow);
+    this.storage.changeTab(this.tabNow, this.selectedTab);
     this.tabNow = this.selectedTab;
   }
 }

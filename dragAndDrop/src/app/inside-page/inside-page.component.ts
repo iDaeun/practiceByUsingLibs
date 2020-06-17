@@ -29,12 +29,18 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.storage
         .changeTab$
-        .subscribe(page => {
-          if (page === this.pageNum) {
-            this.initializeDataList();
+        .subscribe((page) => {
+          this.initializeDataList();
+          // 이전 page : 데이터 저장
+          if (page.previousPg === this.pageNum) {
             this.setDataList();
-            console.log('this.dataList ------', this.dataList);
-            this.storeWidgetData(page)
+            console.log('setDataList ------', this.dataList);
+            this.storeWidgetData();
+          }
+          // 현재 page : 저장된 데이터 조회 후 화면에 표시
+          if (page.presentPg === this.pageNum) {
+            this.getDataList();
+            console.log('getDataList ------', this.dataList);
           }
         })
     );
@@ -58,7 +64,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => {sub.unsubscribe()})
+    this.subscriptions.forEach(sub => {sub.unsubscribe()});
   }
 
   // drag and drop
@@ -185,13 +191,13 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private storeWidgetData(page: PAGE) {
-    this.widget.page = page;
+  private storeWidgetData() {
+    this.widget.page = this.pageNum;
     this.widget.data = this.dataList;
 
     let idx: number;
     if (this.storage.widgetDataList) {
-      idx = this.storage.widgetDataList.findIndex(list => list.page == page);
+      idx = this.storage.widgetDataList.findIndex(list => list.page == this.pageNum);
     }
     if (idx > -1) {
       this.storage.widgetDataList[ idx ] = this.widget;
@@ -200,5 +206,14 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     }
 
     console.log('this.storage.widgetDataList ===== ', this.storage.widgetDataList);
+  }
+
+  private getDataList() {
+    if (this.storage.widgetDataList) {
+      let idx = this.storage.widgetDataList.findIndex(list => list.page == this.pageNum);
+      if (idx > -1) {
+        this.dataList = this.storage.widgetDataList[ idx ].data;
+      }
+    }
   }
 }
