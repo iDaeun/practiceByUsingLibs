@@ -113,6 +113,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     if (this.clickedDiv) {
       const childDiv = document.getElementById(this.clickedDiv.toString());
       childDiv.style.top = '0px';
+      childDiv.setAttribute('data-y', childDiv.style.top);
     }
   }
 
@@ -121,6 +122,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       const parentDiv = document.getElementById('parentDiv');
       const childDiv = document.getElementById(this.clickedDiv.toString());
       childDiv.style.top = `${parentDiv.offsetHeight - childDiv.offsetHeight}px`;
+      childDiv.setAttribute('data-y', childDiv.style.top);
     }
   }
 
@@ -177,6 +179,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       Array.from(parentDiv.children).forEach(child => {
         let data: singleData = {
           id: child.id,
+          bgCr: child[ 'style' ].backgroundColor,
           width: child[ 'offsetWidth' ] || 0,
           height: child[ 'offsetHeight' ] || 0,
           x: parseFloat(child.getAttribute('data-x')) || 0,
@@ -224,12 +227,16 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       this.dataList.forEach(data => {
         let newDiv = document.createElement('div');
         newDiv.id = data.id;
-        newDiv.setAttribute('style', `background-color: red; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
+        newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
         newDiv.setAttribute('data-x', `${data.x}px`);
         newDiv.setAttribute('data-y', `${data.y}px`);
         newDiv.setAttribute('data-z', `${data.z}px`);
         newDiv.style.left = `${data.x}px`;
         newDiv.style.top = `${data.y}px`;
+        newDiv.className = 'childDiv';
+        newDiv.addEventListener('click', (event) => {
+          this.click(event);
+        });
         newDiv.textContent = data.contents.content;
 
         parentDiv.appendChild(newDiv);
