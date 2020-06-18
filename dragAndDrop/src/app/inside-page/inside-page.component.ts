@@ -56,11 +56,30 @@ export class InsidePageComponent implements OnInit, OnDestroy {
         },
         // The bind function returns a new function that is bound to the this you defined.
         onmove: this.resizeMoveListener.bind(this),
-        inertia: true
+        inertia: true,
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: 'parent',
+            endOnly: true
+          })
+        ]
       })
       .draggable({
         onmove: this.dragMoveListener.bind(this),
-        inertia: true
+        inertia: true,
+        modifiers: [
+          interact.modifiers.snap({
+            targets: [
+              interact.createSnapGrid({ x: 30, y: 30 })
+            ],
+            range: Infinity,
+            relativePoints: [ { x: 0, y: 0 } ]
+          }),
+          interact.modifiers.restrictRect({
+            restriction: 'parent',
+            endOnly: true
+          })
+        ]
       });
   }
 
