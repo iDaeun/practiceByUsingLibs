@@ -73,7 +73,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
               interact.createSnapGrid({ x: 30, y: 30 })
             ],
             range: Infinity,
-            relativePoints: [ { x: 0, y: 0 } ]
+            relativePoints: [{ x: 0, y: 0 }]
           }),
           interact.modifiers.restrictRect({
             restriction: 'parent',
@@ -241,7 +241,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   }
 
   private showDataList() {
-    if (this.dataList.length > 1) {
+    if (this.dataList.length > 0) {
       const parentDiv = document.getElementById('parentDiv');
       this.dataList.forEach(data => {
         let newDiv = document.createElement('div');
