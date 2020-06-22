@@ -91,11 +91,10 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   private dragMoveListener(event) {
     const target = event.target;
 
-    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    console.log(event.dx + ' // ' + event.dy);
 
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
+    let x = (parseFloat(target.style.left) || 0) + event.dx;
+    let y = (parseFloat(target.style.top) || 0) + event.dy;
 
     target.style.left = `${x}px`;
     target.style.top = `${y}px`;
@@ -104,20 +103,15 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   private resizeMoveListener(event) {
     const target = event.target;
 
-    let x = (parseFloat(target.getAttribute('data-x')) || 0);
-    let y = (parseFloat(target.getAttribute('data-y')) || 0);
-
     target.style.width = `${event.rect.width}px`;
     target.style.height = `${event.rect.height}px`;
 
-    x += event.deltaRect.left;
-    y += event.deltaRect.top;
+    let x = (parseFloat(target.style.left) || 0) + event.deltaRect.left;
+    let y = (parseFloat(target.style.top) || 0) + event.deltaRect.top;
 
     target.style.left = `${x}px`;
     target.style.top = `${y}px`;
 
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
     target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
   }
 
@@ -132,7 +126,6 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     if (this.clickedDiv) {
       const childDiv = document.getElementById(this.clickedDiv.toString());
       childDiv.style.top = '0px';
-      childDiv.setAttribute('data-y', childDiv.style.top);
     }
   }
 
@@ -141,7 +134,6 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       const parentDiv = document.getElementById('parentDiv');
       const childDiv = document.getElementById(this.clickedDiv.toString());
       childDiv.style.top = `${parentDiv.offsetHeight - childDiv.offsetHeight}px`;
-      childDiv.setAttribute('data-y', childDiv.style.top);
     }
   }
 
@@ -175,7 +167,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     let bgColor = this.setColor();
     newDiv.id = `childDiv${Math.floor(Math.random() * 100)}`;
     newDiv.className = 'childDiv';
-    newDiv.setAttribute('style', `background-color: ${bgColor}; position: absolute; box-sizing: border-box; touch-action: none; width: 400px; height: 400px;`);
+    newDiv.setAttribute('style', `background-color: ${bgColor}; position: absolute; box-sizing: border-box; touch-action: none; width: 400px; height: 400px; left: 0px; top: 0px;`);
     newDiv.addEventListener('click', (event) => {
       this.click(event);
     });
@@ -201,9 +193,8 @@ export class InsidePageComponent implements OnInit, OnDestroy {
           bgCr: child[ 'style' ].backgroundColor,
           width: child[ 'offsetWidth' ] || 0,
           height: child[ 'offsetHeight' ] || 0,
-          x: parseFloat(child.getAttribute('data-x')) || 0,
-          y: parseFloat(child.getAttribute('data-y')) || 0,
-          z: parseFloat(child.getAttribute('data-z')) || 0,
+          x: parseFloat(child[ 'style' ].left) || 0,
+          y: parseFloat(child[ 'style' ].top) || 0,
           contents: {
             type: 'nnnnnnnn',
             content: child.innerHTML
@@ -247,9 +238,6 @@ export class InsidePageComponent implements OnInit, OnDestroy {
         let newDiv = document.createElement('div');
         newDiv.id = data.id;
         newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
-        newDiv.setAttribute('data-x', `${data.x}px`);
-        newDiv.setAttribute('data-y', `${data.y}px`);
-        newDiv.setAttribute('data-z', `${data.z}px`);
         newDiv.style.left = `${data.x}px`;
         newDiv.style.top = `${data.y}px`;
         newDiv.className = 'childDiv';
