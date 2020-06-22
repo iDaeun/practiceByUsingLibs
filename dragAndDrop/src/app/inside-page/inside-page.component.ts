@@ -17,6 +17,8 @@ export class InsidePageComponent implements OnInit, OnDestroy {
 
   private clickedDiv: string;
 
+  private interactEl;
+
   // Subscription
   private subscriptions: Subscription[] = [];
   private widget = new widget();
@@ -36,6 +38,9 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       this.storage
         .changeTab$
         .subscribe(page => {
+          if (this.interactEl) {
+            this.interactEl.unset();
+          }
           this.initializeDataList();
           // 이전 page : 데이터 저장
           if (page === this.pageNum) {
@@ -46,7 +51,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
         })
     );
 
-    interact('.childDiv')
+    this.interactEl = interact('.childDiv')
       .resizable({
         edges: {
           bottom: true,
@@ -90,8 +95,6 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   // drag and drop
   private dragMoveListener(event) {
     const target = event.target;
-
-    console.log(event.dx + ' // ' + event.dy);
 
     let x = (parseFloat(target.style.left) || 0) + event.dx;
     let y = (parseFloat(target.style.top) || 0) + event.dy;
