@@ -26,6 +26,9 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   // 현재 page : 저장된 데이터 조회 후 화면에 표시
   private dataList: Array<singleData> = [];
 
+  // 연속적으로 div 추가 버튼 누르는지 여부
+  private continuousAdding = false;
+
   constructor(private storage: WidgetStorageService) { }
 
   ngOnInit() {
@@ -101,6 +104,8 @@ export class InsidePageComponent implements OnInit, OnDestroy {
 
     target.style.left = `${x}px`;
     target.style.top = `${y}px`;
+
+    this.continuousAdding = false;
   }
 
   private resizeMoveListener(event) {
@@ -116,6 +121,8 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     target.style.top = `${y}px`;
 
     target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
+
+    this.continuousAdding = false;
   }
 
   // 클릭
@@ -129,6 +136,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     if (this.clickedDiv) {
       const childDiv = document.getElementById(this.clickedDiv.toString());
       childDiv.style.top = '0px';
+      this.continuousAdding = false;
     }
   }
 
@@ -137,6 +145,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       const parentDiv = document.getElementById('parentDiv');
       const childDiv = document.getElementById(this.clickedDiv.toString());
       childDiv.style.top = `${parentDiv.offsetHeight - childDiv.offsetHeight}px`;
+      this.continuousAdding = false;
     }
   }
 
@@ -146,6 +155,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       const parentDiv = document.getElementById('parentDiv');
       const childDiv = document.getElementById(this.clickedDiv.toString());
       parentDiv.insertAdjacentElement('beforeend', childDiv);
+      this.continuousAdding = false;
     }
   }
 
@@ -154,6 +164,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       const parentDiv = document.getElementById('parentDiv');
       const childDiv = document.getElementById(this.clickedDiv.toString());
       parentDiv.insertAdjacentElement('afterbegin', childDiv);
+      this.continuousAdding = false;
     }
   }
 
@@ -170,17 +181,23 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     let bgColor = this.setColor();
     newDiv.id = `childDiv${Math.floor(Math.random() * 100)}`;
     newDiv.className = 'childDiv';
-    newDiv.setAttribute('style', `background-color: ${bgColor}; position: absolute; box-sizing: border-box; touch-action: none; width: 400px; height: 400px; left: 0px; top: 0px;`);
+    newDiv.textContent = 'new box!';
     newDiv.addEventListener('click', (event) => {
       this.click(event);
     });
 
-    newDiv.textContent = 'new box!';
+    if (this.continuousAdding) {
+      const parentDiv = document.getElementById('parentDiv');
+      let upperDivLeft = parseFloat(parentDiv.children[ parentDiv.children.length - 1 ][ 'style' ].left) || 0;
+      let upperDivTop = parseFloat(parentDiv.children[ parentDiv.children.length - 1 ][ 'style' ].top) || 0;
+
+      newDiv.setAttribute('style', `background-color: ${bgColor}; position: absolute; box-sizing: border-box; touch-action: none; width: 400px; height: 400px; left: ${upperDivLeft + 20}px; top: ${upperDivTop + 20}px;`);
+    } else {
+      newDiv.setAttribute('style', `background-color: ${bgColor}; position: absolute; box-sizing: border-box; touch-action: none; width: 400px; height: 400px; left: 0px; top: 0px;`);
+    }
+
     document.getElementById('parentDiv').appendChild(newDiv);
-  }
-
-  public addDiv1() {
-
+    this.continuousAdding = true;
   }
 
   private initializeDataList() {
