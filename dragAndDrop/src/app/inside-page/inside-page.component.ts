@@ -75,7 +75,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
         modifiers: [
           interact.modifiers.snap({
             targets: [
-              interact.createSnapGrid({ x: 30, y: 30 })
+              interact.createSnapGrid({ x: 15, y: 15 })
             ],
             range: Infinity,
             relativePoints: [{ x: 0, y: 0 }]
