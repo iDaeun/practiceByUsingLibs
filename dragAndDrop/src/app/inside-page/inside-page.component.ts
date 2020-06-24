@@ -208,7 +208,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     this.dataList = [];
   }
 
-  // 현재 화면의 위젯 데이터 저장
+  // dataList에 현재 화면의 위젯 데이터 저장
   private setDataList() {
     const parentDiv = document.getElementById('parentDiv');
     if (parentDiv.children.length > 0) {
@@ -257,15 +257,21 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   }
 
   // 화면에 기존 도형 표시
-  private showDataList() {
+  private showDataList(xRate?: number, yRate?: number) {
     if (this.dataList.length > 0) {
       const parentDiv = document.getElementById('parentDiv');
       this.dataList.forEach(data => {
         let newDiv = document.createElement('div');
         newDiv.id = data.id;
-        newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
-        newDiv.style.left = `${data.x}px`;
-        newDiv.style.top = `${data.y}px`;
+        if (xRate && yRate) {
+          newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width * xRate}px; height: ${data.height * yRate}px;`);
+          newDiv.style.left = `${data.x * xRate}px`;
+          newDiv.style.top = `${data.y * yRate}px`;
+        } else {
+          newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width}px; height: ${data.height}px;`);
+          newDiv.style.left = `${data.x}px`;
+          newDiv.style.top = `${data.y}px`;
+        }
         newDiv.className = 'childDiv';
         newDiv.addEventListener('click', (event) => {
           this.click(event);
@@ -282,6 +288,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
 
     this.initializeDataList();
     this.setDataList();
+
     const parentDiv = document.getElementById('parentDiv');
     while (parentDiv.lastElementChild) {
       parentDiv.removeChild(parentDiv.lastElementChild);
@@ -294,26 +301,9 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     parentDiv.style.height = `${parentDiv.offsetHeight * yRate}px`;
 
     // width, height, left, top 조정
-    if (this.dataList.length > 0) {
-      const parentDiv = document.getElementById('parentDiv');
-      this.dataList.forEach(data => {
-        let newDiv = document.createElement('div');
-        newDiv.id = data.id;
-        newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width * xRate}px; height: ${data.height * yRate}px;`);
-        newDiv.style.left = `${data.x * xRate}px`;
-        newDiv.style.top = `${data.y * yRate}px`;
-        newDiv.className = 'childDiv';
-        newDiv.addEventListener('click', (event) => {
-          this.click(event);
-        });
-        newDiv.textContent = data.contents.content;
-
-        parentDiv.appendChild(newDiv);
-      });
-    }
+    this.showDataList(xRate, yRate);
 
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
-
   }
 }
