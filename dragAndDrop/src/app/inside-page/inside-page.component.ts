@@ -29,6 +29,10 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   // 연속적으로 div 추가 버튼 누르는지 여부
   private continuousAdding = false;
 
+  // 브라우저 크기
+  private innerWidth = window.innerWidth;
+  private innerHeight = window.innerHeight;
+
   constructor(private storage: WidgetStorageService) { }
 
   ngOnInit() {
