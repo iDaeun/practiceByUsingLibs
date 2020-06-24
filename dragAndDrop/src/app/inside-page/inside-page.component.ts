@@ -256,7 +256,6 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     }
   }
 
-
   // 화면에 기존 도형 표시
   private showDataList() {
     if (this.dataList.length > 0) {
@@ -276,5 +275,45 @@ export class InsidePageComponent implements OnInit, OnDestroy {
         parentDiv.appendChild(newDiv);
       });
     }
+  }
+
+  // 현재 브라우저 창 크기에 맞춰서 도형 배치 및 사이즈 변환
+  public changeSize() {
+
+    this.initializeDataList();
+    this.setDataList();
+    const parentDiv = document.getElementById('parentDiv');
+    while (parentDiv.lastElementChild) {
+      parentDiv.removeChild(parentDiv.lastElementChild);
+    }
+
+    const xRate = window.innerWidth / this.innerWidth;
+    const yRate = window.innerHeight / this.innerHeight;
+
+    parentDiv.style.width = `${parentDiv.offsetWidth * xRate}px`;
+    parentDiv.style.height = `${parentDiv.offsetHeight * yRate}px`;
+
+    // width, height, left, top 조정
+    if (this.dataList.length > 0) {
+      const parentDiv = document.getElementById('parentDiv');
+      this.dataList.forEach(data => {
+        let newDiv = document.createElement('div');
+        newDiv.id = data.id;
+        newDiv.setAttribute('style', `background-color: ${data.bgCr}; position: absolute; box-sizing: border-box; touch-action: none; width: ${data.width * xRate}px; height: ${data.height * yRate}px;`);
+        newDiv.style.left = `${data.x * xRate}px`;
+        newDiv.style.top = `${data.y * yRate}px`;
+        newDiv.className = 'childDiv';
+        newDiv.addEventListener('click', (event) => {
+          this.click(event);
+        });
+        newDiv.textContent = data.contents.content;
+
+        parentDiv.appendChild(newDiv);
+      });
+    }
+
+    this.innerWidth = window.innerWidth;
+    this.innerHeight = window.innerHeight;
+
   }
 }
