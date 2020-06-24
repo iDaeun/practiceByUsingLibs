@@ -32,15 +32,15 @@ export class InsidePageComponent implements OnInit, OnDestroy {
   constructor(private storage: WidgetStorageService) { }
 
   ngOnInit() {
+    // 현재 page : 데이터 불러와서 표시
     this.getDataList();
-    console.log('*************************************************');
-    console.log(this.pageNum + 'getDataList ------', this.dataList);
     this.showDataList();
 
     this.subscriptions.push(
       this.storage
         .changeTab$
         .subscribe(page => {
+          // interact element reset
           if (this.interactEl) {
             this.interactEl.unset();
           }
@@ -48,7 +48,6 @@ export class InsidePageComponent implements OnInit, OnDestroy {
           // 이전 page : 데이터 저장
           if (page === this.pageNum) {
             this.setDataList();
-            console.log(this.pageNum + 'setDataList ------', this.dataList);
             this.storeWidgetData();
           }
         })
@@ -186,6 +185,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
       this.click(event);
     });
 
+    // 연속으로 div 추가 시 px 조정
     if (this.continuousAdding) {
       const parentDiv = document.getElementById('parentDiv');
       let upperDivLeft = parseFloat(parentDiv.children[ parentDiv.children.length - 1 ][ 'style' ].left) || 0;
@@ -204,6 +204,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     this.dataList = [];
   }
 
+  // 현재 화면의 위젯 데이터 저장
   private setDataList() {
     const parentDiv = document.getElementById('parentDiv');
     if (parentDiv.children.length > 0) {
@@ -225,6 +226,7 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     }
   }
 
+  // storage에 데이터 저장
   private storeWidgetData() {
     this.widget.page = this.pageNum;
     this.widget.data = this.dataList;
@@ -238,10 +240,9 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     } else {
       this.storage.widgetDataList.push(this.widget);
     }
-
-    console.log('this.storage.widgetDataList ===== ', this.storage.widgetDataList);
   }
 
+  // storage에 저장된 위젯 데이터 가져오기
   private getDataList() {
     if (this.storage.widgetDataList) {
       let idx = this.storage.widgetDataList.findIndex(list => list.page == this.pageNum);
@@ -251,6 +252,8 @@ export class InsidePageComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  // 화면에 기존 도형 표시
   private showDataList() {
     if (this.dataList.length > 0) {
       const parentDiv = document.getElementById('parentDiv');
