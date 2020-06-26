@@ -16,6 +16,18 @@ export namespace UrlPath {
     public static ROOT = '/' + TEMPLATE.ROUTE.ROOT + '/' + HOME.ROUTE.ROOT;
   }
 
+  export class USER {
+    public static ROUTE = {
+      ROOT: 'user',
+      SIGNIN: 'signin',
+      CERTIFICATION: 'certification/:key',
+      PROFILE: 'user-profile'
+    };
+
+    public static USER_PROFILE = '/' + TEMPLATE.ROUTE.ROOT + '/' + USER.ROUTE.PROFILE;
+    public static USER_SIGNIN = '/' + USER.ROUTE.ROOT + '/' + USER.ROUTE.SIGNIN;
+  }
+
   export class SYNC {
     public static ROUTE = {
       ROOT: 'sync',
