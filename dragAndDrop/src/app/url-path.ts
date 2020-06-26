@@ -16,4 +16,18 @@ export namespace UrlPath {
     public static ROOT = '/' + TEMPLATE.ROUTE.ROOT + '/' + HOME.ROUTE.ROOT;
   }
 
+  export class SYNC {
+    public static ROUTE = {
+      ROOT: 'sync',
+      SYNC_DETAIL: 'detail/:syncId'
+    };
+  }
+
+  export class SNAP {
+    public static ROUTE = {
+      ROOT: 'snap',
+      SYNC_DETAIL: 'detail/:snapId'
+    };
+  }
+
 }
