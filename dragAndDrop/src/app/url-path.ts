@@ -1,13 +1,22 @@
 // 폴더 및 Route 구조 정의 ( 기획서 내용 참조 )
 // syncView, syncEdit, snapView, snapEdit
 // template - 보류
-// Q. resolve 사용 여부
+// Q. resolve 사용 여부 ?
+
+// 폴더 구조
+// - common : component > input, selectBox
+// - home
+// - report : detail-report, edit-report / common > add-panel, setting-panel, tabs
+// - user
+// - layout
+
 export namespace UrlPath {
 
   // 홈
   export class HOME {
     public static ROUTE = {
       ROOT: 'home',
+      LIST: 'list/:userId', // 특정 아이
       FOLDER: 'folder/:folderId' // 폴더 선택
     };
 
@@ -20,7 +29,7 @@ export namespace UrlPath {
     public static ROUTE = {
       ROOT: 'report',
       DETAIL: 'detail/:reportId', // report 열람
-      EDIT: 'edit/:reportId' // report 편집
+      EDIT: 'edit/:reportId' // report 편집 (resolve x)
     };
 
     public static ROOT = '/' + HOME.ROUTE.ROOT + '/' + REPORT.ROUTE.ROOT;
@@ -32,7 +41,7 @@ export namespace UrlPath {
     public static ROUTE = {
       ROOT: 'user',
       SIGNIN: 'signin',
-      CERTIFICATION: 'certification/:key',
+      // CERTIFICATION: 'certification/:key',
       PROFILE: 'user-profile'
     };
 
