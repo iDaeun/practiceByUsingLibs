@@ -1,44 +1,31 @@
 // 폴더 및 Route 구조 정의 ( 기획서 내용 참조 )
 // syncView, syncEdit, snapView, snapEdit
+// template - 보류
+// Q. resolve 사용 여부
 export namespace UrlPath {
 
   // 홈
   export class HOME {
     public static ROUTE = {
       ROOT: 'home',
-      FOLDER: 'folder/:folderId', // 폴더 선택
-      TEMPLATE: 'templateList' // 템플릿 목록 화면
+      FOLDER: 'folder/:folderId' // 폴더 선택
     };
 
     public static ROOT = '/' + HOME.ROUTE.ROOT;
     public static FOLDER = '/' + HOME.ROUTE.ROOT + '/' + HOME.ROUTE.FOLDER;
-    public static TEMPLATE = '/' + HOME.ROUTE.ROOT + '/' + HOME.ROUTE.TEMPLATE;
   }
 
-  // 리포트 만들기 -> 싱크 리포트
-  export class SYNC {
+  // 리포트 만들기 -> 싱크 리포트 / 스냅 리포트
+  export class REPORT {
     public static ROUTE = {
-      ROOT: 'sync',
-      DETAIL: 'detail/:syncId', // 특정 sync report 열람
-      EDIT: 'edit/:syncId' // sync report 편집
+      ROOT: 'report',
+      DETAIL: 'detail/:reportId', // report 열람
+      EDIT: 'edit/:reportId' // report 편집
     };
 
-    public static ROOT = '/' + HOME.ROUTE.ROOT + '/' + SYNC.ROUTE.ROOT;
-    public static SYNC_DETAIL = '/' + HOME.ROUTE.ROOT + '/' + SYNC.ROUTE.DETAIL;
-    public static SYNC_EDIT = '/' + HOME.ROUTE.ROOT + '/' + SYNC.ROUTE.EDIT;
-  }
-
-  // 리포트 만들기 -> 스냅 리포트
-  export class SNAP {
-    public static ROUTE = {
-      ROOT: 'snap',
-      DETAIL: 'detail/:snapId', // 특정 snap report 열람
-      EDIT: 'edit/:snapId' // sync report 편집
-    };
-
-    public static ROOT = '/' + HOME.ROUTE.ROOT + '/' + SNAP.ROUTE.ROOT;
-    public static SNAP_DETAIL = '/' + HOME.ROUTE.ROOT + '/' + SNAP.ROUTE.DETAIL;
-    public static SNAP_EDIT = '/' + HOME.ROUTE.ROOT + '/' + SNAP.ROUTE.EDIT;
+    public static ROOT = '/' + HOME.ROUTE.ROOT + '/' + REPORT.ROUTE.ROOT;
+    public static REPORT_DETAIL = '/' + HOME.ROUTE.ROOT + '/' + REPORT.ROUTE.DETAIL;
+    public static REPORT_EDIT = '/' + HOME.ROUTE.ROOT + '/' + REPORT.ROUTE.EDIT;
   }
 
   export class USER {
